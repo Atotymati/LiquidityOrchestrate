@@ -1,30 +1,155 @@
-# liquidityOrchestrate
+# LiquidityOrchestrate
 
+> Transforming idle liquidity into productive capital.
 
-A production-oriented Uniswap v4 hook that automatically moves idle LP liquidity into yield-generating strategies such as Aave and ERC4626 vaults, then restores liquidity when positions become active again.
+![Solidity](https://img.shields.io/badge/Solidity-0.8.26-blue)
+![Uniswap v4](https://img.shields.io/badge/Uniswap-v4-pink)
+![Chainlink](https://img.shields.io/badge/Chainlink-Automation-blue)
+![Aave](https://img.shields.io/badge/Aave-V3-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Network](https://img.shields.io/badge/Network-Unichain%20Sepolia-orange)
 
-The hook combines:
+LiquidityOrchestrate is an autonomous liquidity management layer built on Uniswap v4 that continuously monitors LP positions, detects inactive capital, deploys idle assets into yield-generating strategies, and restores liquidity when market activity returns.
 
-* **Uniswap v4 Hooks**
-* **Chainlink Automation**
-* **Aave V3**
-* **ERC4626 Vaults**
-* **Oracle-based safety checks**
-* **Modular strategy execution**
-
-to create an automated idle liquidity management system for concentrated liquidity LPs.
+By combining Uniswap v4 Hooks, Chainlink Automation, Aave, ERC4626 vaults, and modular strategy execution, LiquidityOrchestrate enables liquidity providers to earn yield on capital that would otherwise remain dormant.
 
 ---
 
+# Live Demo
 
+### Frontend
 
+🔗 **Dashboard:**
+`https://your-dashboard-url.com`
+
+### Smart Contracts
+
+| Contract                  | Address                           |
+| ------------------------- | --------------------------------- |
+| LiquidityOrchestrate Hook | `0xYOUR_HOOK_ADDRESS`             |
+| Strategy Manager          | `0xYOUR_STRATEGY_MANAGER_ADDRESS` |
+| Aave Strategy             | `0xYOUR_AAVE_STRATEGY_ADDRESS`    |
+| ERC4626 Strategy          | `0xYOUR_ERC4626_STRATEGY_ADDRESS` |
+
+### Network
+
+* **Network:** Unichain Sepolia
+* **Chain ID:** `YOUR_CHAIN_ID`
+* **Block Explorer:** `https://your-explorer-url.com`
+
+### Repository
+
+```text
+Frontend:
+https://github.com/your-org/liquidityorchestrate-frontend
+
+Smart Contracts:
+https://github.com/your-org/liquidityorchestrate
+```
+
+---
+
+# Screenshots
+
+## Dashboard
+
+![Dashboard Screenshot](docs/images/dashboard.png)
+
+## Liquidity Monitoring
+
+![Liquidity Monitoring](docs/images/monitoring.png)
+
+## Rebalance Activity
+
+![Rebalance Activity](docs/images/rebalance.png)
+
+---
+
+# Demo Video
+
+Watch the full protocol walkthrough:
+
+🎥 `https://youtube.com/watch?v=YOUR_VIDEO_ID`
+
+---
+
+# The Problem
+
+Concentrated liquidity improved capital efficiency, but introduced a new inefficiency.
+
+When liquidity moves out of range, capital often sits idle until market prices return.
+
+Across DeFi, millions of dollars remain inactive inside LP positions:
+
+* generating no yield
+* providing no market utility
+* reducing overall capital efficiency
+
+Liquidity providers must choose between:
+
+1. Keeping funds in LP positions and earning nothing while inactive
+2. Manually moving assets into yield strategies
+3. Constantly monitoring and rebalancing positions
+
+This creates operational complexity and capital inefficiency.
+
+---
+
+# The Solution
+
+LiquidityOrchestrate automates the entire lifecycle of inactive liquidity.
+
+When liquidity becomes inactive:
+
+* Detect idle capital
+* Move assets into approved yield strategies
+* Accrue yield while inactive
+* Restore liquidity when market conditions require it
+
+The result is a self-managing liquidity infrastructure layer that keeps capital productive at all times.
+
+---
+
+# How It Works
+
+```text
+Liquidity Provider
+        │
+        ▼
+Uniswap v4 Position
+        │
+        ▼
+LiquidityOrchestrate Hook
+        │
+        ▼
+Idle Liquidity Detection
+        │
+        ▼
+Yield Engine
+        │
+ ┌──────┴──────┐
+ ▼             ▼
+Aave        ERC4626
+        │
+        ▼
+Yield Accrual
+        │
+        ▼
+Automatic Liquidity Restoration
+```
+
+---
+
+# Architecture
+
+```text
                     ┌──────────────────┐
                     │ Uniswap v4 Pool  │
                     └─────────┬────────┘
                               │
                               ▼
                   ┌──────────────────────┐
-                  │ Idle Liquidity Hook  │
+                  │ LiquidityOrchestrate │
                   └─────────┬────────────┘
                             │
           ┌─────────────────┼─────────────────┐
@@ -48,476 +173,219 @@ to create an automated idle liquidity management system for concentrated liquidi
       ┌───────────┐               ┌───────────┐
       │   Aave    │               │ ERC4626   │
       └───────────┘               └───────────┘
-
-
-
-
-
-
-
-## Architecture Overview
-
-### Core Flow
-
-1. LP adds liquidity to a Uniswap v4 pool
-2. Hook tracks the LP position
-3. Swaps trigger update requests
-4. Chainlink Automation calls rebalance
-5. Out-of-range liquidity is moved to:
-
-   * Aave V3
-   * ERC4626 vaults
-   * Custom strategies
-6. Yield accrues while liquidity is idle
-7. Liquidity is restored when position becomes active again
+```
 
 ---
 
-# Features
+# Core Components
 
-## Automated Idle Liquidity Management
+## Idle Liquidity Hook
 
-Detects inactive LP positions and reallocates assets into yield strategies automatically.
+Monitors liquidity activity and tracks position state.
 
-## Strategy Support
+## Yield Engine
 
-### Aave V3
+Routes inactive assets into approved strategies.
 
-Supports depositing idle liquidity into lending markets.
+## Rebalance Engine
 
-* aToken accounting
-* principal tracking
-* withdrawal synchronization
+Determines when liquidity should leave or re-enter pools.
 
-### ERC4626 Vaults
+## Strategy Manager
 
-Supports vault-based yield strategies.
+Provides modular integrations for multiple yield sources.
 
-* share accounting
-* asset conversion handling
-* vault failure protection
+## Chainlink Automation
 
-### Custom Strategies
-
-Modular strategy architecture using delegatecall executors.
+Enables decentralized execution without manual intervention.
 
 ---
 
-## Chainlink Automation Integration
+# Key Features
 
-Uses keeper-compatible automation for:
+## Autonomous Liquidity Management
 
-* periodic rebalancing
-* pool scanning
-* batched maintenance
-* decentralized execution
+Automatically detects and manages inactive LP capital.
 
----
+## Yield Generation
 
-## Oracle Safety
+Deploys idle liquidity into:
 
-Chainlink price feeds are used for:
+* Aave V3
+* ERC4626 Vaults
+* Custom Strategy Modules
+
+## Automated Rebalancing
+
+Continuously evaluates liquidity status and restores positions when necessary.
+
+## Oracle-Protected Execution
+
+Uses Chainlink price feeds for:
 
 * price validation
 * deviation checks
 * stale data protection
 
----
+## Institutional-Grade Controls
 
-## Security Features
-
-### Trusted Counterparties
-
-Whitelisted:
-
-* Aave pools
-* ERC4626 vaults
-
-to reduce griefing and malicious integrations.
-
-### Emergency Pause
-
-Protocol owner can pause operations during emergencies.
-
-### Reentrancy Protection
-
-Critical operations use OpenZeppelin ReentrancyGuard.
-
-### Storage Spam Protection
-
-Pools must be explicitly approved before tracking.
-
-### LP Limits
-
-Caps maximum tracked LPs per pool.
+* Emergency pause
+* Whitelisted integrations
+* Reentrancy protection
+* Storage limits
+* Configurable pool controls
 
 ---
 
-# Contract Inheritance
+# Integration
 
-```solidity
-contract IdleLiquidityHookEnterprise is
-    BaseHook,
-    IdleLiquidityRebalanceEngine,
-    ChainlinkAutomation
-```
+LiquidityOrchestrate is currently deployed and tested on **Unichain Sepolia**, demonstrating end-to-end integration between:
 
----
+* Uniswap v4 liquidity pools
+* LiquidityOrchestrate Hook
+* Chainlink Automation
+* Yield Strategy Infrastructure
+* Frontend Monitoring Dashboard
 
-# Hook Permissions
+## Current Deployment
 
-The hook enables:
-
-| Hook                  | Enabled |
-| --------------------- | ------- |
-| afterSwap             | ✅       |
-| afterAddLiquidity     | ✅       |
-| beforeSwap            | ❌       |
-| beforeAddLiquidity    | ❌       |
-| beforeRemoveLiquidity | ❌       |
-| afterRemoveLiquidity  | ❌       |
-| donate hooks          | ❌       |
+| Component          | Status        |
+| ------------------ | ------------- |
+| Smart Contracts    | ✅ Deployed    |
+| Uniswap v4 Hook    | ✅ Integrated  |
+| Unichain Sepolia   | ✅ Live        |
+| Frontend Dashboard | ✅ Functional  |
+| Position Tracking  | ✅ Operational |
+| Rebalance Engine   | ✅ Operational |
 
 ---
 
-# Key Components
+# Why LiquidityOrchestrate?
 
-## Position Tracking
+Traditional LP infrastructure stops at providing liquidity.
 
-Tracks:
+LiquidityOrchestrate extends the lifecycle of capital.
 
-* liquidity amounts
-* tick ranges
-* vault shares
-* Aave principal
-* accumulated yield
-* LP status
+Instead of asking:
 
----
+> "How do we provide liquidity?"
 
-## Rebalance Engine
+LiquidityOrchestrate asks:
 
-Responsible for:
+> "How do we ensure liquidity is productive even when it's not being used?"
 
-* detecting inactive liquidity
-* moving assets into yield strategies
-* restoring liquidity when active again
+This shifts liquidity management from passive capital storage to active capital orchestration.
 
 ---
 
-## Yield Accounting
-
-Supports:
-
-* global yield indexes
-* LP-specific accrual
-* protocol revenue share
-* strategy accounting
-
----
-
-# Supported Strategies
-
-## Aave Strategy
-
-Idle liquidity can be supplied into Aave lending markets.
-
-### Accounting
-
-```solidity
-totalATokenPrincipal
-```
-
-Tracks total supplied principal.
-
----
-
-## ERC4626 Strategy
-
-Supports vault-based strategies with share accounting.
-
-### Accounting
-
-```solidity
-totalVaultShares
-```
-
-Tracks deposited vault shares.
-
----
-
-# Events
-
-## RebalanceAttempt
-
-```solidity
-event RebalanceAttempt(PoolId indexed pid, address indexed lp);
-```
-
-Emitted when a rebalance starts.
-
----
-
-## PositionRegistered
-
-```solidity
-event PositionRegistered(
-    PoolId indexed pid,
-    address indexed lp,
-    address caller,
-    uint128 liquidity0,
-    uint128 liquidity1,
-    int24 lower,
-    int24 upper
-);
-```
-
-Emitted when an LP position is tracked.
-
----
-
-## EmergencyPauseSet
-
-```solidity
-event EmergencyPauseSet(bool paused);
-```
-
-Emitted when emergency mode changes.
-
----
-
-# Pool Lifecycle
-
-## 1. LP Adds Liquidity
-
-`afterAddLiquidity()` registers the position.
-
----
-
-## 2. Swaps Trigger Updates
-
-`afterSwap()` marks the pool for rebalancing.
-
----
-
-## 3. Keeper Executes Rebalance
-
-Chainlink Automation calls:
-
-```solidity
-performUpkeep()
-```
-
----
-
-## 4. Idle Liquidity Gets Deposited
-
-Assets are routed into:
-
-* Aave
-* ERC4626 vaults
-* custom strategies
-
----
-
-## 5. Yield Accrues
-
-Yield indexes are updated and LPs accumulate rewards.
-
----
-
-## 6. Liquidity Returns Active
-
-Funds are withdrawn from strategies and restored.
-
----
-
-# Admin Functions
-
-## Strategy Configuration
-
-```solidity
-setAaveStrategy(address)
-setERC4626Strategy(address)
-setStrategyManager(address)
-```
-
----
-
-## Pool Configuration
-
-```solidity
-setPoolConfigAave(...)
-setPoolConfigAaveSelective(...)
-updateRates(...)
-updateRatesBatch(...)
-```
-
----
-
-## Trusted Counterparties
-
-```solidity
-setTrustedAavePool(address,bool)
-setTrustedERC4626Vault(address,bool)
-```
-
----
-
-## Emergency Controls
-
-```solidity
-setEmergencyPause(bool)
-```
-
----
-
-# Keeper Automation
-
-The contract implements automated upkeep scanning.
-
-## Upkeep Logic
-
-```solidity
-_checkUpkeep()
-_performUpkeep()
-```
-
-### Features
-
-* rotating pool cursor
-* bounded scanning
-* gas-aware batching
-* anti-spam update throttling
-
----
-
-# Oracle System
-
-Uses Chainlink aggregators for:
-
-* price retrieval
-* deviation checks
-* stale feed protection
-
-## Configuration
-
-```solidity
-setPriceFeed(asset, feed)
-```
-
----
-
-# Testing Utilities
-
-Includes helper functions for testing environments:
-
-```solidity
-registerPosition()
-registerLP()
-clearPosition()
-setAccountingForTest()
-setPositionStatusForTest()
-```
-
-These simplify integration and simulation testing.
-
----
-
-# Security Considerations
-
-## Delegatecall Usage
-
-Strategies execute via delegatecall.
-
-Only trusted and audited strategy implementations should be used.
-
----
-
-## Oracle Dependency
-
-Incorrect oracle configuration can impact rebalancing logic.
-
-Use reliable Chainlink feeds only.
-
----
-
-## Vault Risk
-
-ERC4626 vault behavior depends on external implementations.
-
-Always whitelist trusted vaults.
-
----
-
-# Example Integration Flow
-
-```solidity
-// 1. Configure strategies
-hook.setStrategyManager(strategyManager);
-
-// 2. Configure pool
-hook.setPoolConfigAave(
-    pid,
-    0,
-    asset,
-    aavePool,
-    aToken,
-    9000,
-    1000
-);
-
-// 3. Add Chainlink feed
-hook.setPriceFeed(asset, feed);
-
-// 4. LP adds liquidity
-poolManager.modifyLiquidity(...);
-
-// 5. Keeper performs rebalance
-performUpkeep(...);
-```
-
----
-
-# Dependencies
-
-Built with:
-
-* Uniswap v4
-* Aave
-* Chainlink
+# Technology Stack
+
+## Smart Contracts
+
+* Solidity
+* Uniswap v4 Hooks
+* Chainlink Automation
+* Aave V3
+* ERC4626
 * OpenZeppelin
 
+## Frontend
+
+* HTML
+* CSS
+* JavaScript
+* Ethers.js
+
+## Development
+
+* Foundry
+* Forge
+* Anvil
+* Cast
+
+## Infrastructure
+
+* Unichain Sepolia
+* Chainlink Oracles
+* Chainlink Automation
+
 ---
 
-# Use Cases
+# Project Structure
 
-## Yield-Optimized LP Infrastructure
-
-Improve capital efficiency for concentrated liquidity providers.
+```text
+liquidityOrchestrate/
+├── src/
+│   ├── hooks/
+│   ├── strategies/
+│   ├── automation/
+│   ├── accounting/
+│   └── libraries/
+│
+├── script/
+│
+├── test/
+│
+├── frontend/
+│   ├── index.html
+│   ├── styles.css
+│   ├── app.js
+│   └── abi/
+│
+├── docs/
+│   ├── images/
+│   └── architecture.md
+│
+└── README.md
+```
 
 ---
 
-## Automated Treasury Liquidity
+# Future Roadmap
 
-Protocols can automate treasury LP positions.
-
----
-
-## Institutional LP Management
-
-Enable passive yield generation for inactive liquidity.
-
----
-
-# Future Improvements
-
-* multi-strategy routing
-* dynamic risk scoring
-* cross-chain automation
+* Multi-strategy routing
+* Dynamic risk scoring
+* Cross-chain liquidity orchestration
 * AI-assisted rebalance optimization
-* protocol fee distribution
-* governance-controlled strategy allocation
+* Protocol fee distribution
+* Governance-controlled strategy allocation
+* Institutional vault integrations
+* Automated strategy marketplace
+
+---
+
+# Quick Start
+
+```bash
+forge install
+forge build
+forge test
+```
+
+---
+
+# Security
+
+Security measures include:
+
+* Whitelisted strategy integrations
+* Chainlink oracle validation
+* Emergency pause functionality
+* Reentrancy protection
+* Pool approval controls
+* Strategy isolation architecture
+
+Only trusted and audited integrations should be used in production environments.
+
+---
+
+# Vision
+
+Liquidity should never sit idle.
+
+LiquidityOrchestrate aims to become the operating system for productive liquidity across DeFi, enabling capital to move intelligently between trading, lending, vault strategies, and future yield opportunities without requiring user intervention.
+
+Our long-term vision is a world where every unit of liquidity remains productive, secure, and continuously optimized across decentralized markets.
 
 ---
 
@@ -529,76 +397,8 @@ MIT
 
 # Disclaimer
 
-This protocol interacts with external DeFi systems and uses delegatecall-based strategy execution.
+This protocol interacts with external DeFi systems including lending markets, vaults, automation networks, and oracle providers.
+
+Smart contract risk, oracle risk, strategy risk, and integration risk remain inherent to decentralized finance.
 
 Use only audited integrations and thoroughly test before deploying to production environments.
-
-
-
-
-## Foundry
-
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
-
-Foundry consists of:
-
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
