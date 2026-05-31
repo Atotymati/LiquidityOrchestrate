@@ -16,6 +16,8 @@ to create an automated idle liquidity management system for concentrated liquidi
 
 ---
 
+
+
                     ┌──────────────────┐
                     │ Uniswap v4 Pool  │
                     └─────────┬────────┘
@@ -46,6 +48,12 @@ to create an automated idle liquidity management system for concentrated liquidi
       ┌───────────┐               ┌───────────┐
       │   Aave    │               │ ERC4626   │
       └───────────┘               └───────────┘
+
+
+
+
+
+
 
 ## Architecture Overview
 
